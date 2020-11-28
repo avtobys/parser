@@ -51,7 +51,7 @@ if (!empty($_SESSION['login'])) {
         } else {
             $data = trim(shell_exec('tail -n ' . abs(intval($_GET['parser_lines'])) . ' ' . __DIR__ . '/logs/thread.log'));
         }
-        $data = htmlspecialchars($data, ENT_QUOTES);
+        $data = str_replace("'", "&#39;", $data);
         $data = preg_replace('#(http(|s):\/\/[^\s\,\"]+)#', '<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"$1\">$1</a>', $data);
         echo "document.getElementById('parser').innerHTML='" . str_replace("\n", "\\n", $data) . "';";
 
@@ -61,7 +61,7 @@ if (!empty($_SESSION['login'])) {
         } else {
             $data = trim(shell_exec('tail -n ' . abs(intval($_GET['error_lines'])) . ' ' . __DIR__ . '/logs/error.log'));
         }
-        $data = htmlspecialchars($data, ENT_QUOTES);
+        $data = str_replace("'", "&#39;", $data);
         $data = preg_replace('#(http(|s):\/\/[^\s\,\"]+)#', '<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"$1\">$1</a>', $data);
         echo "document.getElementById('error').innerHTML='" . str_replace("\n", "\\n", $data) . "';";
 
@@ -183,6 +183,10 @@ $_SESSION['csrf'] = md5(microtime(true));
 
         .dataChange input[name=data] {
             max-width: 40px;
+        }
+
+        input {
+            outline: none;
         }
 
         input[type=submit],
@@ -502,6 +506,12 @@ $_SESSION['csrf'] = md5(microtime(true));
             });
         }
     });
+
+    document.querySelector(".dataChange > div > input[name=data]").addEventListener("keydown", function (e) {
+        if (e.keyCode == 13) {
+            document.querySelector(".dataChange > div > button[type=submit]").click();
+        }
+    })
 </script>
 </body>
 
