@@ -2,6 +2,7 @@
 
 set_time_limit(1800);
 ignore_user_abort(true);
+libxml_use_internal_errors(true);
 require __DIR__ . '/inc/conf.php';
 spl_autoload_register(function ($class) {
     require __DIR__ . '/classes/' . strtolower($class) . '.class.php';
