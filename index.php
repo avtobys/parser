@@ -281,7 +281,7 @@ $_SESSION['csrf'] = md5(microtime(true));
     </style>
 </head>
 
-<body style="font-size:13px;line-height:1;background-color:black;margin:0 auto;padding:0;">
+<body style="font-size:12px;line-height:1;background-color:black;margin:0 auto;padding:0;">
     <?php if (empty($_SESSION['login'])) : ?>
         <div class="auth">
             <form action="/<?= basename(__DIR__) ?>/index.php" method="post">
