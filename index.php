@@ -19,6 +19,9 @@ if ($attempts <= 0) {
 
 session_start();
 
+if (ADMIN_PASS == '') {
+    $_SESSION['login'] = 1;
+}
 
 if (!empty($_SESSION['login'])) {
     if (isset($_GET['stat'])) {
