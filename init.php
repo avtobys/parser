@@ -18,5 +18,5 @@ if ($threads < THREADS_MAX) {
 
 usleep(500000);
 
-if (intval(shell_exec("ps aux | grep 'php -f " . __DIR__ . "/init\.php' | wc -l")) <= 1)
+if (intval(shell_exec("ps aux | grep 'php -f " . __DIR__ . "/init\.php' | wc -l")) <= 1 && THREADS_MAX)
     exec('(php -f ' . __DIR__ . '/init.php &) > /dev/null 2>&1');

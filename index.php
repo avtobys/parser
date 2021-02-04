@@ -73,7 +73,7 @@ if (!empty($_SESSION['login'])) {
     if (isset($_GET['threads'])) {
         $threads = abs(intval($_GET['threads']));
         exec("sed -i -r 's/THREADS_MAX[[:space:]]*=[[:space:]]*[0-9]+/THREADS_MAX = " . $threads . "/' " . __DIR__ . "/inc/conf.php");
-        if ($threads) {
+        if ($threads && intval(shell_exec("ps aux | grep 'php -f " . __DIR__ . "/init\.php' | wc -l")) < 1) {
             exec('(php -f ' . __DIR__ . '/init.php &) > /dev/null 2>&1');
         }
         echo "location.hash = '';
