@@ -5,9 +5,9 @@ class Stack
     /**
      * @param string $filepath
      * @param int $timeout
-     * @return $res
+     * @return string $res
      */
-    public function getItem($filepath, $timeout)
+    public function getItem($filepath, $timeout = 300)
     {
         $res = false;
         $file = new SplFileObject($filepath, 'a+b');
