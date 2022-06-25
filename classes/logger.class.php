@@ -2,13 +2,10 @@
 
 class Logger
 {
-    public function __construct()
+
+    private static function log_write($data, $logfile)
     {
         file_exists(dirname(__DIR__) . '/logs') or mkdir(dirname(__DIR__) . '/logs', 0755) or exit('logs path not created');
-    }
-
-    public function log_write($data, $logfile)
-    {
         $logsize = file_exists($logfile) ? filesize($logfile) : 0;
         $file = new SplFileObject($logfile, 'a+b');
         $file->flock(LOCK_EX);
@@ -19,13 +16,13 @@ class Logger
         $file->flock(LOCK_UN);
     }
 
-    public function log($data)
+    public static function log($data)
     {
-        $this->log_write(date('M j H:i:s') . ' '.sprintf("%7s", number_format(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 3)).' ' . $data . "\n", dirname(__DIR__) . '/logs/thread.log');
+        self::log_write(date('M j H:i:s') . ' '.sprintf("%7s", number_format(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 3)).' ' . $data . "\n", dirname(__DIR__) . '/logs/thread.log');
     }
 
-    public function err($data)
+    public static function err($data)
     {
-        $this->log_write(date('M j H:i:s') . ' '.sprintf("%7s", number_format(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 3)).' ' . $data . "\n", dirname(__DIR__) . '/logs/error.log');
+        self::log_write(date('M j H:i:s') . ' '.sprintf("%7s", number_format(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 3)).' ' . $data . "\n", dirname(__DIR__) . '/logs/error.log');
     }
 }

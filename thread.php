@@ -9,17 +9,21 @@ spl_autoload_register(function ($class) {
 });
 
 $T = new Threads();
-$log = new Logger();
 $proxy = new Proxy();
 $parser  = new Parser();
 $stack   = new Stack();
 
 $T->unlock();
 
+try {
+    $dbh = new PDO('mysql:dbname=' . DB['name'] . ';host=' . DB['host'] . ';port=' . DB['port'] . ';charset=utf8mb4', DB['user'], DB['pass']);
+} catch (PDOException $e) {
+    Logger::err($e->getMessage());
+}
 
-$db = new DB();
-$log->log('Потоков: ' . $T->n);
-$log->log(json_encode($proxy->getProxy()));
-// $log->err('error');
+
+Logger::log('Потоков: ' . $T->n);
+Logger::log(json_encode($proxy->getProxy()));
+Logger::err('error');
 
 // sleep(rand(2, 30));

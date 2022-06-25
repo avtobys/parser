@@ -13,7 +13,7 @@ const PROXY_GOOD_TIME = 15;
 const TOR = true;
 const TOR_RANGE = [9060, 9560];
 
-const DB = ['host' => '127.0.0.1', 'username' => 'root', 'password' => '', 'db_name' => 'test'];
+const DB = ['host' => '127.0.0.1', 'user' => 'root', 'pass' => '', 'name' => 'test', 'port' => 3306];
 
 const GREP = [
     'parser' => [
