@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(0);
 header("Cache-Control: no-cache");
 header("Expires: Thu, 01 Jan 1970 00:00:01 GMT");
